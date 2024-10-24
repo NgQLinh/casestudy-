@@ -1,110 +1,85 @@
+// Định nghĩa lớp Student
 class Student {
-    constructor(name, dob, major, course, birthplace, gender) {
+    constructor(name, birthdate, course, classYear, hometown, gender, imageUrl) {
         this.name = name;
-        this.dob = new Date(dob);
-        this.major = major;
+        this.birthdate = new Date(birthdate);
         this.course = course;
-        this.birthplace = birthplace;
+        this.classYear = classYear;
+        this.hometown = hometown;
         this.gender = gender;
-    }
-
-    get age() {
-        const today = new Date();
-        return today.getFullYear() - this.dob.getFullYear();
+        this.imageUrl = imageUrl;
     }
 }
 
 let students = [];
 
-function display(studentsToShow) {
-    let result = "<table><tr style='background-color: green; color: white'>" +
-        "<th>Họ tên</th>" +
-        "<th>Ngày sinh</th>" +
-        "<th>Tuổi</th>" +
-        "<th>Ngành học</th>" +
-        "<th>Khóa học</th>" +
-        "<th>Nơi sinh</th>" +
-        "<th>Giới tính</th>" +
-        "<th>Hành động</th>" +
-        "</tr>";
+// Dữ liệu mẫu
+students.push(new Student("Nguyễn Văn An", "2004-11-01", "Công nghệ thông tin", "K16", "Hà Nội", "Nam", "https://via.placeholder.com/100"));
+students.push(new Student("Nguyễn Nhật Hạ", "2003-06-25", "Tài chính ngân hàng", "K15", "Phú Thọ", "Nam", "https://via.placeholder.com/100"));
+students.push(new Student("Phạm Trần Lam Giang", "2005-09-21", "Marketing", "K17", "Thanh Hoá", "Nữ", "https://via.placeholder.com/100"));
+students.push(new Student("Lê Mai Khanh", "2004-10-06", "Ngôn ngữ Anh", "K16", "Hà Tĩnh", "Nữ", "https://via.placeholder.com/100"));
+students.push(new Student("Lê Trần Thảo Linh", "2003-01-01", "Kế toán", "K15", "Điện Biên", "Nữ", "https://via.placeholder.com/100"));
+students.push(new Student("Đặng Bình An", "2003-05-15", "Thiết kế đồ hoạ", "K15", "Bắc Giang", "Nam", "https://via.placeholder.com/100"));
+students.push(new Student("Lâm Hải An", "2005-07-30", "Truyền thông đa phương tiện", "K17", "Hải Dương", "Nam", "https://via.placeholder.com/100"));
+students.push(new Student("Võ Cát Hải Đường", "2005-01-01", "Công nghệ bán dẫn", "K17", "Hải Phòng", "Nữ", "https://via.placeholder.com/100"));
+students.push(new Student("Antaram Đặng", "2004-05-08", "Điện tử viễn thông", "K16", "America", "Nữ", "https://via.placeholder.com/100"));
+students.push(new Student("Nguyễn Thành Đạt", "2004-12-22", "Công nghệ kỹ thuật ô tô", "K16", "Quảng Ninh", "Nam", "https://via.placeholder.com/100"));
 
-    for (let i = 0; i < studentsToShow.length; i++) {
-        result += "<tr>";
-        result += `<td>${studentsToShow[i].name}</td>`;
-        result += `<td>${studentsToShow[i].dob.toLocaleDateString()}</td>`;
-        result += `<td>${studentsToShow[i].age}</td>`;
-        result += `<td>${studentsToShow[i].major}</td>`;
-        result += `<td>${studentsToShow[i].course}</td>`;
-        result += `<td>${studentsToShow[i].birthplace}</td>`;
-        result += `<td>${studentsToShow[i].gender}</td>`;
-        result += `<td><button onclick="deleteStudent(${i})">Xóa</button></td>`;
-        result += "</tr>";
-    }
-    result += "</table>";
-    document.getElementById("result").innerHTML = result;
-}
-
-function deleteStudent(index) {
-    if (confirm(`Bạn có chắc muốn xóa sinh viên ${students[index].name}?`)) {
-        students.splice(index, 1);
-        display(students);
-        alert("Xóa thành công");
-    }
-}
-
-document.getElementById("add").addEventListener("click", function () {
-    const name = document.getElementById("studentAddName").value.trim();
-    const dob = document.getElementById("studentAddDob").value;
-    const major = document.getElementById("studentAddMajor").value.trim();
-    const course = document.getElementById("studentAddCourse").value.trim();
-    const birthplace = document.getElementById("studentAddBirthplace").value.trim();
-    const gender = document.getElementById("studentAddGender").value;
-
-    if (!name || !dob || !major || !course || !birthplace || !gender) {
-        alert("Vui lòng điền đầy đủ thông tin");
-        return;
-    }
-
-    const student = new Student(name, dob, major, course, birthplace, gender);
-    students.push(student);
-    display(students);
-    document.getElementById("alertProcess").innerHTML = "Thêm sinh viên thành công!";
-    document.getElementById("studentAddName").value = "";
-    document.getElementById("studentAddDob").value = "";
-    document.getElementById("studentAddMajor").value = "";
-    document.getElementById("studentAddCourse").value = "";
-    document.getElementById("studentAddBirthplace").value = "";
-    document.getElementById("studentAddGender").value = "";
-});
-
-document.getElementById("search").addEventListener("click", function () {
-    const searchName = document.getElementById("studentSearch").value.trim();
-    const searchAge = parseInt(document.getElementById("studentSearchAge").value);
-    const searchCourse = document.getElementById("studentSearchCourse").value.trim();
-    const searchBirthplace = document.getElementById("studentSearchBirthplace").value.trim();
-
-    const filteredStudents = students.filter(student => {
-        const matchesName = student.name.toLowerCase().includes(searchName.toLowerCase());
-        const matchesAge = isNaN(searchAge) || student.age === searchAge;
-        const matchesCourse = student.course.toLowerCase().includes(searchCourse.toLowerCase());
-        const matchesBirthplace = student.birthplace.toLowerCase().includes(searchBirthplace.toLowerCase());
-        return matchesName && matchesAge && matchesCourse && matchesBirthplace;
+function display(studentList) {
+    const studentContainer = document.getElementById("studentContainer");
+    studentContainer.innerHTML = "";
+    studentList.forEach(student => {
+        const studentRow = document.createElement("tr");
+        studentRow.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.gender}</td>
+            <td>${student.birthdate.toLocaleDateString()}</td>
+            <td>${student.course}</td>
+            <td>${student.classYear}</td>
+            <td>${student.hometown}</td>
+            <td><img src="${student.imageUrl}" alt="${student.name}" style="width: 50px; height: 50px; object-fit: cover;"></td>
+            <td>
+                <button onclick="editStudent('${student.name}')">Sửa</button>
+                <button onclick="deleteStudent('${student.name}')">Xóa</button>
+            </td>
+        `;
+        studentContainer.appendChild(studentRow);
     });
+}
 
+function addStudent() {
+    const name = document.getElementById("studentAddName").value;
+    const birthdate = document.getElementById("studentAddDob").value;
+    const course = document.getElementById("studentAddMajor").value;
+    const classYear = document.getElementById("studentAddCourse").value;
+    const hometown = document.getElementById("studentAddBirthplace").value;
+    const gender = document.getElementById("studentAddGender").value;
+    const imageUrl = document.getElementById("studentAddImage").value;
+
+    const newStudent = new Student(name, birthdate, course, classYear, hometown, gender, imageUrl);
+    students.push(newStudent);
+    display(students);
+}
+
+function editStudent(name) {
+    const student = students.find(s => s.name === name);
+    if (student) {
+        alert("Chức năng sửa chưa được thực hiện.");
+    }
+}
+
+function deleteStudent(name) {
+    students = students.filter(s => s.name !== name);
+    display(students);
+}
+
+function searchStudent() {
+    const searchValue = document.getElementById("studentSearch").value.toLowerCase();
+    const filteredStudents = students.filter(student => student.name.toLowerCase().includes(searchValue));
     display(filteredStudents);
-});
+}
 
+document.getElementById("add").onclick = addStudent;
+document.getElementById("search").onclick = searchStudent;
 
-// Adding sample students
-students.push(new Student("Nguyễn Văn An", "2004-11-01", "Công nghệ thông tin", "K16", "Hà Nội", "Nam"));
-students.push(new Student("Nguyễn Nhật Hạ", "2003-06-25", "Tài chính ngân hàng", "K15", "Phú Thọ", "Nam"));
-students.push(new Student("Phạm Trần Lam Giang", "2005-09-21", "Marketing", "K17", "Thanh Hoá", "Nữ"));
-students.push(new Student("Lê Mai Khanh", "2004-10-06", "Ngôn ngữ Anh", "K16", "Hà Tĩnh", "Nữ"));
-students.push(new Student("Lê Trần Thảo Linh", "2003-01-01", "Kế toán", "K15", "Điện Biên", "Nữ"));
-students.push(new Student("Đặng Bình An", "2003-05-15", "Thiết kế đồ hoạ", "K15", "Bắc Giang", "Nam"));
-students.push(new Student("Lâm Hải An", "2005-07-30", "Truyền thông đa phương tiện", "K17", "Hải Dương", "Nam"));
-students.push(new Student("Võ Cát Hải Đường", "2005-01-01", "Công nghệ bán dẫn", "K17", "Hải Phòng", "Nữ"));
-students.push(new Student("Antaram Đặng", "2004-05-08", "Điện tử viễn thông", "K16", "America", "Nữ"));
-students.push(new Student("Nguyễn Thành Đạt", "2004-12-22", "Công nghệ kỹ thuật ô tô", "K16", "Quảng Ninh", "Nam"));
-
-display(students);
+window.onload = () => display(students);

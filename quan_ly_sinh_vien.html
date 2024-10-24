@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <title>Quản lý sinh viên</title>
     <style>
-        tr {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
             height: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
         }
 
         tr:nth-child(odd) {
             background-color: #f4f4f4;
-        }
-
-        td {
-            text-align: center;
-            width: 250px;
         }
 
         button {
@@ -28,23 +31,30 @@
         #add {
             margin: 10px 0;
         }
+
+        input, select {
+            width: 300px;
+            height: 35px;
+            margin-top: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
 
-<h1 style="background-color: green; color: white; text-align: center; width: 1500px; height: 50px;"> ----- Quản lý sinh viên ----- </h1>
+<h1 style="background-color: green; color: white; text-align: center;"> ----- Quản lý sinh viên ----- </h1>
 
-<div style="width: 1455px; height: auto; background-color: #f4f4f4; padding: 20px;">
-    <input type="text" id="studentSearch" placeholder="Tìm kiếm theo tên" style="width: 300px; height: 30px;">
-    <input type="text" id="studentAddName" placeholder="Họ và tên" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="number" id="studentSearchAge" placeholder="Tìm kiếm theo tuổi" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="text" id="studentSearchCourse" placeholder="Tìm kiếm theo khóa" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="date" id="studentAddDob" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="text" id="studentAddMajor" placeholder="Ngành học" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="text" id="studentAddCourse" placeholder="Khóa học" style="margin-top:5px; width: 300px; height: 30px;">
-    <input type="text" id="studentAddBirthplace" placeholder="Nơi sinh" style="margin-top:5px; width: 300px; height: 30px;">
+<div style="padding: 20px;">
+    <input type="text" id="studentSearch" placeholder="Tìm kiếm theo tên">
+    <input type="text" id="studentAddName" placeholder="Họ và tên">
+    <input type="date" id="studentAddDob">
+    <input type="text" id="studentAddMajor" placeholder="Ngành học">
+    <input type="text" id="studentAddCourse" placeholder="Khóa học">
+    <input type="text" id="studentAddBirthplace" placeholder="Nơi sinh">
+    <input type="text" id="studentAddImage" placeholder="Đường dẫn ảnh">
 
-    <select id="studentAddGender" style="margin-top:5px; width: 300px; height: 30px;">
+    <select id="studentAddGender">
         <option value="">Chọn giới tính</option>
         <option value="Nam">Nam</option>
         <option value="Nữ">Nữ</option>
@@ -57,11 +67,23 @@
 
     <p id="alertProcess"></p>
 </div>
-<br><br><br>
 
-<div id="result"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Tên</th>
+        <th>Giới tính</th>
+        <th>Ngày sinh</th>
+        <th>Ngành học</th>
+        <th>Khóa học</th>
+        <th>Nơi sinh</th>
+        <th>Ảnh</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody id="studentContainer"></tbody>
+</table>
 
 <script src="Student.js"></script>
-
 </body>
 </html>
