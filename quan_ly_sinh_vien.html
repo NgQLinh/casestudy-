@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quản lý sinh viên</title>
     <style>
-
         tr {
             height: 50px;
         }
@@ -29,46 +28,40 @@
         #add {
             margin: 10px 0;
         }
-
     </style>
-
 </head>
 <body>
 
-<h1 style="background-color: green; color: white ; text-align: center; width: 1500px; height: 50px" > ----- Quản lý sinh viên -----     </h1>
+<h1 style="background-color: green; color: white; text-align: center; width: 1500px; height: 50px;"> ----- Quản lý sinh viên ----- </h1>
 
-    <div style="width: 1455px; eight: auto; background-color: #f4f4f4; padding: 20px;">
+<div style="width: 1455px; height: auto; background-color: #f4f4f4; padding: 20px;">
+    <input type="text" id="studentSearch" placeholder="Tìm kiếm theo tên" style="width: 300px; height: 30px;">
+    <input type="text" id="studentAddName" placeholder="Họ và tên" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="number" id="studentSearchAge" placeholder="Tìm kiếm theo tuổi" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="text" id="studentSearchCourse" placeholder="Tìm kiếm theo khóa" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="date" id="studentAddDob" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="text" id="studentAddMajor" placeholder="Ngành học" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="text" id="studentAddCourse" placeholder="Khóa học" style="margin-top:5px; width: 300px; height: 30px;">
+    <input type="text" id="studentAddBirthplace" placeholder="Nơi sinh" style="margin-top:5px; width: 300px; height: 30px;">
 
-        <input type="text" id="studentSearch" placeholder="Tìm kiếm theo tên" style="width: 300px; height: 30px;">
-        <input type="text" id="studentAddName" placeholder="Họ và tên" style="margin-top:5px; width: 300px; height: 30px;">
+    <select id="studentAddGender" style="margin-top:5px; width: 300px; height: 30px;">
+        <option value="">Chọn giới tính</option>
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+    </select>
 
-        <input type="number" id="studentSearchAge" placeholder="Tìm kiếm theo tuổi" style="margin-top:5px; width: 300px; height: 30px;">
-        <input type="text" id="studentSearchCourse" placeholder="Tìm kiếm theo khóa" style="margin-top:5px; width: 300px; height: 30px;">
-
-        <input type="date" id="studentAddDob" style="margin-top:5px; width: 300px; height: 30px;">
-        <input type="text" id="studentAddMajor" placeholder="Ngành học" style="margin-top:5px; width: 300px; height: 30px;">
-        <input type="text" id="studentAddCourse" placeholder="Khóa học" style="margin-top:5px; width: 300px; height: 30px;">
-        <input type="text" id="studentSearchBirthplace" placeholder="Tìm kiếm nơi sinh" style="margin-top:5px; width: 300px; height: 30px;">
-
-        <select id="studentAddGender" style="margin-top:5px; width: 300px; height: 30px;">
-            <option value="">Chọn giới tính</option>
-            <option value="Nam">Nam</option>
-            <option value="Nữ">Nữ</option>
-        </select>
-
-        <div>
-            <button id="search" >Tìm kiếm</button>
-            <button id="add" >Thêm sinh viên</button>
-        </div>
-
-        <p id="alertProcess"></p>
-
+    <div>
+        <button id="search">Tìm kiếm</button>
+        <button id="add">Thêm sinh viên</button>
     </div>
-    <br><br><br>
 
-    <div id="result"></div>
+    <p id="alertProcess"></p>
+</div>
+<br><br><br>
 
-    <script src="Student.js"></script>
+<div id="result"></div>
+
+<script src="Student.js"></script>
 
 </body>
 </html>
