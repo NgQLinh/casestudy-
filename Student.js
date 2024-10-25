@@ -1,4 +1,3 @@
-// Định nghĩa lớp Student
 class Student {
     constructor(name, birthdate, course, classYear, hometown, gender, imageUrl) {
         this.name = name;
@@ -13,7 +12,6 @@ class Student {
 
 let students = [];
 
-// Dữ liệu mẫu
 students.push(new Student("Nguyễn Văn An", "2004-11-01", "Công nghệ thông tin", "K16", "Hà Nội", "Nam", "https://via.placeholder.com/100"));
 students.push(new Student("Nguyễn Nhật Hạ", "2003-06-25", "Tài chính ngân hàng", "K15", "Phú Thọ", "Nam", "https://via.placeholder.com/100"));
 students.push(new Student("Phạm Trần Lam Giang", "2005-09-21", "Marketing", "K17", "Thanh Hoá", "Nữ", "https://via.placeholder.com/100"));
@@ -48,6 +46,15 @@ function display(studentList) {
 }
 
 function addStudent() {
+    const newStudent = getStudentFromInputs();
+    if (newStudent) {
+        students.push(newStudent);
+        display(students);
+        resetInputs();
+    }
+}
+
+function getStudentFromInputs() {
     const name = document.getElementById("studentAddName").value;
     const birthdate = document.getElementById("studentAddDob").value;
     const course = document.getElementById("studentAddMajor").value;
@@ -56,15 +63,55 @@ function addStudent() {
     const gender = document.getElementById("studentAddGender").value;
     const imageUrl = document.getElementById("studentAddImage").value;
 
-    const newStudent = new Student(name, birthdate, course, classYear, hometown, gender, imageUrl);
-    students.push(newStudent);
-    display(students);
+    if (!name || !birthdate || !course || !classYear || !hometown || !gender || !imageUrl) {
+        alert("Vui lòng nhập đầy đủ thông tin.");
+        return null;
+    }
+    return new Student(name, birthdate, course, classYear, hometown, gender, imageUrl);
+}
+
+function resetInputs() {
+    document.getElementById("studentAddName").value = "";
+    document.getElementById("studentAddDob").value = "";
+    document.getElementById("studentAddMajor").value = "";
+    document.getElementById("studentAddCourse").value = "";
+    document.getElementById("studentAddBirthplace").value = "";
+    document.getElementById("studentAddGender").value = "";
+    document.getElementById("studentAddImage").value = "";
 }
 
 function editStudent(name) {
     const student = students.find(s => s.name === name);
     if (student) {
-        alert("Chức năng sửa chưa được thực hiện.");
+        document.getElementById("studentAddName").value = student.name;
+        document.getElementById("studentAddDob").value = student.birthdate.toISOString().split('T')[0];
+        document.getElementById("studentAddMajor").value = student.course;
+        document.getElementById("studentAddCourse").value = student.classYear;
+        document.getElementById("studentAddBirthplace").value = student.hometown;
+        document.getElementById("studentAddGender").value = student.gender;
+        document.getElementById("studentAddImage").value = student.imageUrl;
+
+        const addButton = document.getElementById("add");
+        addButton.textContent = "Cập nhật";
+        addButton.onclick = function() {
+            updateStudent(name);
+        };
+    }
+}
+
+function updateStudent(oldName) {
+    const updatedStudent = getStudentFromInputs();
+    if (updatedStudent) {
+        const index = students.findIndex(s => s.name === oldName);
+        if (index !== -1) {
+            students[index] = updatedStudent;
+            display(students);
+            resetInputs();
+
+            const addButton = document.getElementById("add");
+            addButton.textContent = "Thêm sinh viên";
+            addButton.onclick = addStudent;
+        }
     }
 }
 
